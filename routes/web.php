@@ -13,6 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group([
+    'middleware'=>'App\Http\Middleware\Auth',
+], function(){
+    Route::get('/profil', 'App\Http\Controllers\ProfilController@showPage');
+
+    Route::post('/profil', 'App\Http\Controllers\ConnexionController@modifyProfil')->name('profil.modifyProfil');
+
+    Route::get('/modifyProfil', 'App\Http\Controllers\ProfilController@showModifPage');
+
+    Route::post('/modifyProfil', 'App\Http\Controllers\ProfilController@confirmModif')->name('modifyProfil.confirmModif');
+
+    Route::get('/users', 'App\Http\Controllers\ProfilController@showUsers');
+
+    Route::post('/users', 'App\Http\Controllers\ProfilController@deleteAccount')->name('users.deleteAccount');
+});
+
+
 Route::get('/', 'App\Http\Controllers\AcceuilController@showPage');
 
 Route::get('/acceuil', 'App\Http\Controllers\AcceuilController@showPage');
@@ -25,18 +42,4 @@ Route::get('/connexion', 'App\Http\Controllers\ConnexionController@showPage');
 
 Route::post('/connexion', 'App\Http\Controllers\ConnexionController@connect')->name('connexion.connect');
 
-Route::get('/profil', 'App\Http\Controllers\ProfilController@showPage');
-
-Route::post('/profil', 'App\Http\Controllers\ConnexionController@modifyProfil')->name('profil.modifyProfil');
-
-Route::get('/modifyProfil', 'App\Http\Controllers\ProfilController@showModifPage');
-
-Route::post('/modifyProfil', 'App\Http\Controllers\ProfilController@confirmModif')->name('modifyProfil.confirmModif');
-
-Route::get('/users', 'App\Http\Controllers\ProfilController@showUsers');
-
-Route::post('/users', 'App\Http\Controllers\ProfilController@deleteAccount')->name('users.deleteAccount');
-
-Route::get('/conseils', 'App\Http\Controllers\PostController@showPage');
-
-Route::post('/conseils', 'App\Http\Controllers\PostController@makePost')->name('conseils.makePost');
+Route::get('/game', 'App\Http\Controllers\GameController@showPage');
